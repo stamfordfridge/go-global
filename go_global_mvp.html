@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GO GLOBAL – Internationaliseringsspillet</title>
+<style>
+:root{--bg:#07111f;--card:#101d31;--card2:#152641;--txt:#edf4ff;--muted:#9fb1ca;--accent:#7c5cff;--good:#39d98a;--warn:#ffcc66}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Arial;background:radial-gradient(circle at top,#172650,#07111f 50%);color:var(--txt)}
+.wrap{max-width:1050px;margin:auto;padding:28px}.top{display:flex;justify-content:space-between;gap:20px;align-items:center}.logo{font-weight:900;letter-spacing:.08em;font-size:22px}.badge{background:#182944;padding:8px 12px;border-radius:999px;color:#b8c8df}
+.hero{padding:54px 0 25px}.hero h1{font-size:clamp(48px,9vw,92px);margin:0;line-height:.9;background:linear-gradient(90deg,#fff,#8ab4ff,#b785ff);-webkit-background-clip:text;color:transparent}
+.hero p{max-width:650px;color:var(--muted);font-size:19px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat,.card{background:linear-gradient(145deg,var(--card2),var(--card));border:1px solid #263b5c;border-radius:18px;padding:18px}
+.stat small{color:var(--muted)}.stat b{display:block;font-size:23px;margin-top:5px}.panel{margin-top:18px}.card h2{margin-top:0}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+button{width:100%;text-align:left;background:#172944;border:1px solid #34517c;color:white;border-radius:14px;padding:16px;font-size:15px;cursor:pointer;transition:.18s}
+button:hover{transform:translateY(-2px);border-color:#806cff;background:#1b3152}button.primary{text-align:center;background:linear-gradient(90deg,#5c6cff,#9a52e8);font-weight:800;font-size:17px}
+.feedback{margin-top:14px;padding:16px;border-left:4px solid var(--good);background:#10273a;border-radius:10px;display:none;line-height:1.5}
+.progress{height:8px;background:#17243a;border-radius:10px;margin:18px 0;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#586cff,#a25cff);width:0}
+.country{font-size:25px}.hidden{display:none}.finalScore{font-size:62px;font-weight:900;margin:5px 0}.theory{color:#b8c8df;font-size:14px;margin-top:10px}
+@media(max-width:700px){.grid,.choices{grid-template-columns:1fr 1fr}.top{align-items:flex-start}.hero{padding-top:35px}} @media(max-width:460px){.grid,.choices{grid-template-columns:1fr}}
+</style></head>
+<body><div class="wrap">
+<div class="top"><div class="logo">🌍 GO GLOBAL</div><div class="badge" id="roundBadge">CEO SIMULATION</div></div>
+
+<section id="intro">
+<div class="hero"><h1>GO<br>GLOBAL.</h1><p>Du sidder i ledelsen hos den danske virksomhed <b>NØRVA</b>, der producerer bæredygtige premium-rygsække. Det danske marked er ved at være mættet. Bestyrelsen vil ud i verden.</p></div>
+<div class="grid">
+<div class="stat"><small>Omsætning</small><b>85 mio. kr.</b></div><div class="stat"><small>Eksportbudget</small><b>10 mio. kr.</b></div>
+<div class="stat"><small>Ansatte</small><b>74</b></div><div class="stat"><small>Position</small><b>Premium 🌱</b></div>
+</div>
+<div class="card panel"><h2>Din mission</h2><p>Skab international vækst uden at sætte virksomhedens økonomi, brand eller bæredygtige profil over styr. Dine valg får konsekvenser.</p><button class="primary" onclick="start()">START INTERNATIONALISERING →</button></div>
+</section>
+
+<section id="game" class="hidden">
+<div class="grid">
+<div class="stat"><small>Kapital</small><b id="money">10,0 mio.</b></div><div class="stat"><small>Global score</small><b id="score">50</b></div>
+<div class="stat"><small>Risiko</small><b id="risk">Lav</b></div><div class="stat"><small>Bæredygtighed</small><b id="green">80</b></div>
+</div><div class="progress"><i id="bar"></i></div><div id="stage" class="card"></div>
+</section>
+
+<section id="final" class="hidden"><div class="hero"><h1>CEO<br>REPORT.</h1></div><div class="card">
+<small>GO GLOBAL SCORE</small><div class="finalScore" id="finalScore"></div><h2 id="verdict"></h2>
+<p id="finalText"></p><div class="theory"><b>Debrief:</b> Hvilke tre beslutninger havde størst betydning? Forklar dem med fagbegreber fra internationalisering.</div>
+<button class="primary" onclick="location.reload()" style="margin-top:18px">SPIL IGEN</button></div></section>
+</div>
+<script>
+let s={money:10,score:50,risk:0,green:80,round:0};
+const stages=[
+{title:"1. Er NØRVA eksportklar?",text:"Efterspørgslen i Danmark stagnerer. En tysk forhandler har samtidig kontaktet jer. Hvad gør I først?",theory:"Fokus: eksportmotiver og eksportberedskab.",choices:[
+["Eksportér straks til Tyskland",{money:-.3,score:2,risk:2},"Proaktivt – men I springer analysen af eksportberedskabet over. Den eksterne henvendelse er et eksportmotiv, ikke et bevis på at virksomheden er klar."],
+["Brug 0,8 mio. på eksportanalyse og kompetencer",{money:-.8,score:10,risk:-1},"Stærkt. I styrker virksomhedens eksportberedskab før en større ressourcebinding."],
+["Vent et år og fokusér kun på Danmark",{score:-6},"Lav risiko, men I reagerer ikke på markedets mætning eller den udenlandske mulighed."],
+["Ansæt straks 8 internationale sælgere",{money:-2.2,score:3,risk:2},"I investerer før I ved, hvilket marked I faktisk vil prioritere. Høj ressourcebinding tidligt."]]},
+{title:"2. Tragtmodellen",text:"I skal reducere seks markeder til ét. Hvilket marked går videre efter en samlet screening?",theory:"Vurder markedsattraktivitet, afstand, konkurrence og virksomhedens forudsætninger.",choices:[
+["🇩🇪 Tyskland – stort, nært, hård konkurrence",{score:9,money:-.4},"Et stærkt match: stort marked og relativt lille psykisk/geografisk afstand, men konkurrencen bliver udfordringen."],
+["🇺🇸 USA – enormt marked, dyr etablering",{score:3,money:-1.2,risk:2},"Stor attraktivitet, men betydelig afstand og ressourcekrav øger risikoen for NØRVA."],
+["🇯🇵 Japan – premiumfit, stor kulturel afstand",{score:4,money:-.8,risk:1},"Interessant premium-marked, men høj kulturel afstand kræver mere viden og tilpasning."],
+["🇳🇴 Norge – nært, mindre marked",{score:6,money:-.2},"Lav afstand og overskuelig adgang, men vækstpotentialet er mindre."]]},
+{title:"3. Markedsoperationsform",text:"Hvordan vil I etablere jer på markedet?",theory:"Afvej kontrol, risiko, ressourcebinding og markedskendskab.",choices:[
+["Indirekte eksport",{score:3,money:-.2,risk:-1},"Billigt og lav risiko, men begrænset kontrol og markedskontakt."],
+["Lokal distributør",{score:8,money:-.7},"God balance mellem lokal viden, investering og kontrol for en relativt ny eksportør."],
+["Eget salgsselskab",{score:7,money:-3,risk:2},"Høj kontrol – men også meget høj ressourcebinding for virksomhedens nuværende erfaring."],
+["Joint venture",{score:5,money:-1.8,risk:1},"Lokal adgang og delt risiko, men samarbejdet kan give konflikter om kontrol."]]},
+{title:"4. Produktstrategi",text:"Kunderne kan lide designet, men ønsker en billigere model. Samtidig er jeres genanvendte materialer en vigtig del af brandet.",theory:"Standardisering vs. tilpasning – og bæredygtighed som konkurrenceparameter.",choices:[
+["Behold produktet uændret",{score:3},"Standardisering holder omkostninger nede, men kan begrænse lokal markedstilpasning."],
+["Lav billig version med konventionelle materialer",{money:.8,score:-3,green:-25},"Kortfristet økonomisk gevinst, men strategien svækker NØRVAs bæredygtige positionering."],
+["Tilpas størrelse/farver – behold materialerne",{money:-.8,score:10,green:3},"I kombinerer lokal tilpasning med virksomhedens kernepositionering. Dyrere, men strategisk sammenhængende."],
+["Skift hele sortimentet til markedets præferencer",{money:-2,score:2,risk:1},"Stor tilpasning kan øge relevansen, men omkostningerne og kompleksiteten vokser kraftigt."]]},
+{title:"5. ⚡ UFORUDSET EVENT",text:"En konkurrent lancerer en næsten identisk bæredygtig rygsæk 20 % billigere. Sociale medier begynder at sammenligne jer.",theory:"Strategien testes nu under pres.",choices:[
+["Sænk prisen 20 %",{money:-1.3,score:2},"I forsvarer volumen, men risikerer at udhule premiumpositionen og indtjeningen."],
+["Øg marketing og dokumentér bæredygtigheden",{money:-1,score:10,green:4},"I forsvarer differentieringen frem for at kopiere konkurrentens prisstrategi."],
+["Ignorér konkurrenten",{score:-8},"Positionering kræver, at kunderne faktisk kan se forskellen. Passivitet koster."],
+["Skær i materialekvaliteten",{money:.7,score:-7,green:-18},"Bedre margin nu, men virksomhedens værdiforslag bliver markant svagere."]]}
+];
+function start(){intro.classList.add("hidden");game.classList.remove("hidden");render()}
+function render(){let x=stages[s.round];roundBadge.innerText=`RUNDE ${s.round+1} / ${stages.length}`;bar.style.width=(s.round/stages.length*100)+"%";
+stage.innerHTML=`<h2>${x.title}</h2><p>${x.text}</p><div class="theory">${x.theory}</div><div class="choices" style="margin-top:18px">${x.choices.map((c,i)=>`<button onclick="choose(${i})">${c[0]}</button>`).join("")}</div><div id="fb" class="feedback"></div>`;update()}
+function choose(i){let c=stages[s.round].choices[i],e=c[1];Object.keys(e).forEach(k=>s[k]+=e[k]);update();let fb=document.getElementById("fb");fb.style.display="block";fb.innerHTML=`<b>Konsekvens</b><br>${c[2]}<br><br><button class="primary" onclick="next()">FORTSÆT →</button>`;[...stage.querySelectorAll(".choices button")].forEach(b=>b.disabled=true)}
+function next(){s.round++;if(s.round>=stages.length){finish()}else render()}
+function update(){money.innerText=s.money.toFixed(1).replace(".",",")+" mio.";score.innerText=s.score;green.innerText=s.green;risk.innerText=s.risk<=0?"Lav":s.risk<=3?"Mellem":"Høj"}
+function finish(){game.classList.add("hidden");final.classList.remove("hidden");let total=Math.max(0,Math.min(100,Math.round(s.score+s.money*.8+s.green*.12-s.risk*3)));finalScore.innerText=total+"/100";let v=total>=85?"International stjerne 🌍":total>=70?"Stærk internationalisering":total>=55?"Lovende – men sårbar":"Bestyrelsen er ikke begejstret";verdict.innerText=v;finalText.innerText=`I slutter med ${s.money.toFixed(1).replace(".",",")} mio. kr. i kapital, bæredygtighed ${s.green}/100 og ${s.risk<=0?"lav":s.risk<=3?"mellem":"høj"} strategisk risiko. Resultatet er ikke kun et spørgsmål om point: diskuter om jeres valg hang fagligt sammen.`}
+</script></body></html>
